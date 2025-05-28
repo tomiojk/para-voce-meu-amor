@@ -60,12 +60,85 @@
   <h1>Para você meu amor</h1>
   <div class="nickname">Princesa 💖</div>
   
-  <div class="carousel-container">
-    <div class="carousel-slide active"><img src="1.jpeg" alt="Foto 1"></div>
-    <div class="carousel-slide"><img src="2.jpeg" alt="Foto 2"></div>
-    <div class="carousel-slide"><img src="3.jpeg" alt="Foto 3"></div>
-    <div class="carousel-slide"><img src="4.png" alt="Foto Estilo Anime"></div>
+  <!-- Carrossel de Imagens -->
+<div class="carousel-container">
+  <div class="carousel-slide fade">
+    <img src="imagens/1.jpg" alt="Foto 1">
   </div>
+  <div class="carousel-slide fade">
+    <img src="imagens/2.jpg" alt="Foto 2">
+  </div>
+  <div class="carousel-slide fade">
+    <img src="imagens/3.jpg" alt="Foto 3">
+  </div>
+  <div class="carousel-slide fade">
+    <img src="imagens/4.jpg" alt="Foto 4">
+  </div>
+
+  <!-- Botões de navegação -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+<style>
+.carousel-container {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+.carousel-slide {
+  display: none;
+}
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  transition: 0.3s;
+  user-select: none;
+}
+.prev { left: 0; }
+.next { right: 0; }
+.fade {
+  animation-name: fade;
+  animation-duration: 1s;
+}
+@keyframes fade {
+  from { opacity: .4 } 
+  to { opacity: 1 }
+}
+</style>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function plusSlides(n) {
+  slideIndex += n;
+  showSlides();
+}
+
+function showSlides() {
+  const slides = document.getElementsByClassName("carousel-slide");
+  if (slideIndex >= slides.length) { slideIndex = 0; }
+  if (slideIndex < 0) { slideIndex = slides.length - 1; }
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+
+  slides[slideIndex].style.display = "block";
+}
+</script>
 
   <div class="message">
     <p>Estamos namorando há 1 mês e 3 meses desde que começamos a ficar. Tudo começou com umas brincadeiras num chá de bebê e uns tirinhos de airsoft kkk, isso foi o suficiente pra eu ver em você o que não via a 2 anos desde que nos conhecemos, afinal foi o maior tempo que passamos juntos pela primeira vez hehe.</p>
