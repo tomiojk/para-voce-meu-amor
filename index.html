@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para você meu amor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff0f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      margin-top: 20px;
+      font-size: 2em;
+    }
+    .nickname {
+      font-size: 1.3em;
+      color: #d63384;
+    }
+    .carousel-container {
+      position: relative;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+    .carousel-slide {
+      display: none;
+      width: 100%;
+    }
+    .carousel-slide img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .active {
+      display: block;
+    }
+    .message {
+      margin: 30px auto;
+      max-width: 600px;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    iframe.spotify {
+      margin: 0 auto 20px auto;
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <iframe class="spotify" src="https://open.spotify.com/embed/track/6OuRbvP4PgbuzBIapVzmFJ?utm_source=generator" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+  <h1>Para você meu amor</h1>
+  <div class="nickname">Princesa 💖</div>
+  
+  <div class="carousel-container">
+    <div class="carousel-slide active"><img src="1.jpeg" alt="Foto 1"></div>
+    <div class="carousel-slide"><img src="2.jpeg" alt="Foto 2"></div>
+    <div class="carousel-slide"><img src="3.jpeg" alt="Foto 3"></div>
+    <div class="carousel-slide"><img src="4.png" alt="Foto Estilo Anime"></div>
+  </div>
+
+  <div class="message">
+    <p>Estamos namorando há 1 mês e 3 meses desde que começamos a ficar. Tudo começou com umas brincadeiras num chá de bebê e uns tirinhos de airsoft kkk, isso foi o suficiente pra eu ver em você o que não via a 2 anos desde que nos conhecemos, afinal foi o maior tempo que passamos juntos pela primeira vez hehe.</p>
+    <p>Não foi fácil, eu já estava decidido a viver sozinho para conquistar minhas coisas, mas graças a Deus ele colocou você em minha vida. Falei para mim mesmo ELA VALE A PENA! Ainda bem que eu me ouvi kkk, pois você foi a melhor coisa que me aconteceu em 2025, na verdade, na minha vida toda ❤️😍</p>
+    <p>Eu te amo meu amor, fico mais do que feliz de estar passando meu primeiro dia dos namorados com você ❤️</p>
+  </div>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName("carousel-slide");
+
+    function showSlides() {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      slides[slideIndex - 1].classList.add("active");
+      setTimeout(showSlides, 3500);
+    }
+    showSlides();
+  </script>
+</body>
+</html>
