@@ -88,6 +88,16 @@
         opacity: 0;
       }
     }
+    .carta {
+      font-family: 'Arial', sans-serif;
+      background: #fdf6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -237,12 +247,14 @@ function showSlides() {
   
 <button onclick="openEnvelope()">Abrir Carta 💌</button>
 
-<div class="envelope" id="envelope">
-  <div class="flap"></div>
-  <div class="message">
-    Princesa, só queria te lembrar o quanto você é especial pra mim.  
-    Cada dia ao seu lado é um presente!  
-    <br><br>Te amo! ❤️
+<div class="carta">
+  <div class="envelope" id="envelope">
+    <div class="flap"></div>
+    <div class="message">
+      Princesa, só queria te lembrar o quanto você é especial pra mim.  
+      Cada dia ao seu lado é um presente!  
+      <br><br>Te amo! ❤️
+    </div>
   </div>
 </div>
 
