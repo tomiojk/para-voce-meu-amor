@@ -88,6 +88,68 @@
         opacity: 0;
       }
     }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fdf6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .envelope {
+      width: 300px;
+      height: 200px;
+      position: relative;
+      background: #f9c4d2;
+      transform-style: preserve-3d;
+      transition: transform 1s ease-in-out;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 50%;
+      background: #f06292;
+      transform-origin: top;
+      transition: transform 1s ease-in-out;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .message {
+      opacity: 0;
+      padding: 20px;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .open .flap {
+      transform: rotateX(-180deg);
+    }
+
+    .open .message {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -183,6 +245,23 @@ function showSlides() {
     <p>Não foi fácil, eu já estava decidido a viver sozinho para conquistar minhas coisas, mas graças a Deus ele colocou você em minha vida. Falei para mim mesmo ELA VALE A PENA! Ainda bem que eu me ouvi kkk, pois você foi a melhor coisa que me aconteceu em 2025, na verdade, na minha vida toda ❤️😍</p>
     <p>Eu te amo meu amor, fico mais do que feliz de estar passando meu primeiro dia dos namorados com você ❤️</p>
   </div>
+  
+  <button onclick="openEnvelope()">Abrir Carta 💌</button>
+
+<div class="envelope" id="envelope">
+  <div class="flap"></div>
+  <div class="message">
+    Princesa, só queria te lembrar o quanto você é especial pra mim.  
+    Cada dia ao seu lado é um presente!  
+    <br><br>Te amo! ❤️
+  </div>
+</div>
+
+<script>
+  function openEnvelope() {
+    document.getElementById('envelope').classList.toggle('open');
+  }
+</script>
 
   <script>
     let slideIndex = 0;
