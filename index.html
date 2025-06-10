@@ -299,7 +299,7 @@ function showSlides() {
   }
 
   function setPositionByIndex() {
-    const slideWidth = slider.querySelector('.slide').clientWidth;
+    const slideWidth = slider.querySelector('.slide').offsetWidth;
     currentTranslate = currentIndex * -slideWidth;
     prevTranslate = currentTranslate;
     slider.style.transition = 'transform 0.3s ease';
