@@ -40,7 +40,7 @@
     .slider-container {
       overflow: hidden;
       max-width: 600px;
-       margin: 20px auto;
+      margin: 20px auto;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
@@ -186,10 +186,6 @@
     <div class="slide"><img src="imagens/4.png" alt="Foto 4"></div>
   </div>
 </div>
-
-  <!-- Botões de navegação -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
 
 <style>
@@ -275,22 +271,6 @@ function showSlides() {
     document.getElementById('envelope').classList.toggle('open');
   }
 </script>
-
-  <script>
-    let slideIndex = 0;
-    const slides = document.getElementsByClassName("carousel-slide");
-
-    function showSlides() {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("active");
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1 }
-      slides[slideIndex - 1].classList.add("active");
-      setTimeout(showSlides, 3500);
-    }
-    showSlides();
-  </script>
   <script>
   const emojis = ["❤️", "💖", "💘", "💞", "🌹"];
   const container = document.getElementById('emojiContainer');
