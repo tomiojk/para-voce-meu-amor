@@ -37,20 +37,30 @@
       font-size: 1.3em;
       color: #d63384;
     }
-    .carousel-container {
-      position: relative;
+    .slider-container {
+      overflow: hidden;
       max-width: 600px;
-      margin: 30px auto;
-    }
-    .carousel-slide {
-      display: none;
-      width: 100%;
-    }
-    .carousel-slide img {
-      width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
+       margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+   .slider-track {
+     display: flex;
+     transition: transform 0.3s ease;
+     will-change: transform;
+   }
+
+   .slide {
+     min-width: 100%;
+     user-select: none;
+   }
+
+   .slide img {
+     width: 100%;
+     display: block;
+     border-radius: 10px;
+   }
     .active {
       display: block;
     }
@@ -168,19 +178,14 @@
 </div>
   
   <!-- Carrossel de Imagens -->
-<div class="carousel-container">
-  <div class="carousel-slide fade">
-    <img src="imagens/1.jpeg" alt="Foto 1">
+<div class="slider-container">
+  <div class="slider-track" id="sliderTrack">
+    <div class="slide"><img src="imagens/1.jpeg" alt="Foto 1"></div>
+    <div class="slide"><img src="imagens/2.jpeg" alt="Foto 2"></div>
+    <div class="slide"><img src="imagens/3.jpeg" alt="Foto 3"></div>
+    <div class="slide"><img src="imagens/4.png" alt="Foto 4"></div>
   </div>
-  <div class="carousel-slide fade">
-    <img src="imagens/2.jpeg" alt="Foto 2">
-  </div>
-  <div class="carousel-slide fade">
-    <img src="imagens/3.jpeg" alt="Foto 3">
-  </div>
-  <div class="carousel-slide fade">
-    <img src="imagens/4.png" alt="Foto 4">
-  </div>
+</div>
 
   <!-- Botões de navegação -->
   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -303,6 +308,60 @@ function showSlides() {
   }
 
   setInterval(createEmoji, 250); // Intervalo de criação dos emojis
+</script>
+<script>
+  const slider = document.getElementById('sliderTrack');
+  let isDown = false;
+  let startX;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationID;
+  let currentIndex = 0;
+
+  slider.addEventListener('touchstart', touchStart);
+  slider.addEventListener('touchend', touchEnd);
+  slider.addEventListener('touchmove', touchMove);
+
+  slider.addEventListener('mousedown', touchStart);
+  slider.addEventListener('mouseup', touchEnd);
+  slider.addEventListener('mouseleave', touchEnd);
+  slider.addEventListener('mousemove', touchMove);
+
+  function touchStart(e) {
+    isDown = true;
+    startX = getPositionX(e);
+    slider.style.transition = 'none';
+  }
+
+  function touchMove(e) {
+    if (!isDown) return;
+    const currentX = getPositionX(e);
+    const deltaX = currentX - startX;
+    currentTranslate = prevTranslate + deltaX;
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+  }
+
+  function touchEnd() {
+    if (!isDown) return;
+    isDown = false;
+    const movedBy = currentTranslate - prevTranslate;
+
+    if (movedBy < -100 && currentIndex < slider.children.length - 1) currentIndex++;
+    if (movedBy > 100 && currentIndex > 0) currentIndex--;
+
+    setPositionByIndex();
+  }
+
+  function getPositionX(e) {
+    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+  }
+
+  function setPositionByIndex() {
+    currentTranslate = currentIndex * -slider.clientWidth;
+    prevTranslate = currentTranslate;
+    slider.style.transition = 'transform 0.3s ease';
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+  }
 </script>
 </body>
 </html>
