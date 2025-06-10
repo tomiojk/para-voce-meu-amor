@@ -229,60 +229,61 @@
 
   setInterval(createEmoji, 250); // Intervalo de criação dos emojis
 </script>
+
 <script>
   const slider = document.getElementById('sliderTrack');
-  let isDown = false;
-  let startX;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID;
-  let currentIndex = 0;
+let isDown = false;
+let startX;
+let currentTranslate = 0;
+let prevTranslate = 0;
+let currentIndex = 0;
 
-  slider.addEventListener('touchstart', touchStart);
-  slider.addEventListener('touchend', touchEnd);
-  slider.addEventListener('touchmove', touchMove);
+slider.addEventListener('touchstart', touchStart);
+slider.addEventListener('touchend', touchEnd);
+slider.addEventListener('touchmove', touchMove, { passive: false });
 
-  slider.addEventListener('mousedown', touchStart);
-  slider.addEventListener('mouseup', touchEnd);
-  slider.addEventListener('mouseleave', touchEnd);
-  slider.addEventListener('mousemove', touchMove);
+slider.addEventListener('mousedown', touchStart);
+slider.addEventListener('mouseup', touchEnd);
+slider.addEventListener('mouseleave', touchEnd);
+slider.addEventListener('mousemove', touchMove);
 
-  function touchStart(e) {
-    isDown = true;
-    startX = getPositionX(e);
-    slider.style.transition = 'none';
-  }
+function touchStart(e) {
+  isDown = true;
+  startX = getPositionX(e);
+  slider.style.transition = 'none';
+}
 
-  function touchMove(e) {
-    if (!isDown) return;
-    const currentX = getPositionX(e);
-    const deltaX = currentX - startX;
-    currentTranslate = prevTranslate + deltaX;
-    slider.style.transform = `translateX(${currentTranslate}px)`;
-  }
+function touchMove(e) {
+  if (!isDown) return;
+  e.preventDefault(); // impede o scroll da página ao arrastar o slider
+  const currentX = getPositionX(e);
+  const deltaX = currentX - startX;
+  currentTranslate = prevTranslate + deltaX;
+  slider.style.transform = `translateX(${currentTranslate}px)`;
+}
 
-  function touchEnd() {
-    if (!isDown) return;
-    isDown = false;
-    const movedBy = currentTranslate - prevTranslate;
+function touchEnd(e) {
+  if (!isDown) return;
+  isDown = false;
+  const movedBy = currentTranslate - prevTranslate;
 
-    if (movedBy < -100 && currentIndex < slider.children.length - 1) currentIndex++;
-    if (movedBy > 100 && currentIndex > 0) currentIndex--;
+  if (movedBy < -100 && currentIndex < slider.children.length - 1) currentIndex++;
+  if (movedBy > 100 && currentIndex > 0) currentIndex--;
 
-    setPositionByIndex();
-  }
+  setPositionByIndex();
+}
 
-  function getPositionX(e) {
-    return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-  }
+function getPositionX(e) {
+  return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+}
 
-  function setPositionByIndex() {
-    const slideWidth = slider.querySelector('.slide').offsetWidth;
-    currentTranslate = currentIndex * -slideWidth;
-    prevTranslate = currentTranslate;
-    slider.style.transition = 'transform 0.3s ease';
-    slider.style.transform = `translateX(${currentTranslate}px)`;
-  }
+function setPositionByIndex() {
+  const slideWidth = slider.querySelector('.slide').offsetWidth;
+  currentTranslate = currentIndex * -slideWidth;
+  prevTranslate = currentTranslate;
+  slider.style.transition = 'transform 0.3s ease';
+  slider.style.transform = `translateX(${currentTranslate}px)`;
+}
 </script>
 </body>
 </html>
