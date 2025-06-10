@@ -37,31 +37,6 @@
       font-size: 1.3em;
       color: #d63384;
     }
-    .insta-slider {
-      verflow: hidden;
-      max-width: 600px;
-      margin: 20px auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .insta-track {
-      display: flex;
-      transition: transform 0.3s ease;
-      will-change: transform;
-    }
-    
-    .insta-slide {
-      min-width: 100%;
-      flex-shrink: 0;
-      user-select: none;
-    }
-    
-    .insta-slide img {
-      width: 100%;
-      display: block;
-      border-radius: 10px;
-    }
     .message {
       margin: 30px auto;
       max-width: 600px;
@@ -164,6 +139,45 @@
       opacity: 1;
     }
   </style>
+  
+<style>
+    .carousel-container {
+      position: relative;
+      max-width: 100%;
+      margin: auto;
+      overflow: hidden;
+    }
+    .carousel-slide {
+      display: none;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      transition: 0.3s;
+      user-select: none;
+    }
+    .prev { left: 0; }
+    .next { right: 0; }
+    .fade {
+      animation-name: fade;
+      animation-duration: 1s;
+    }
+    @keyframes fade {
+      from { opacity: .4 } 
+      to { opacity: 1 }
+    }
+</style>
+  
 </head>
 <body>
   <div class="emoji-container" id="emojiContainer"></div>
@@ -175,13 +189,23 @@
    <div class="nickname">Princesa 💖</div>
 </div>
 
-<div class="insta-slider">
-  <div class="insta-track" id="instaTrack">
-    <div class="insta-slide"><img src="imagens/1.jpeg" alt="1" /></div>
-    <div class="insta-slide"><img src="imagens/2.jpeg" alt="2" /></div>
-    <div class="insta-slide"><img src="imagens/3.jpeg" alt="3" /></div>
-    <div class="insta-slide"><img src="imagens/4.png" alt="4" /></div>
+<div class="carousel-container">
+  <div class="carousel-slide fade">
+    <img src="imagens/.jpeg" alt="Foto 1">
   </div>
+  <div class="carousel-slide fade">
+    <img src="imagens/2.jpeg" alt="Foto 2">
+  </div>
+  <div class="carousel-slide fade">
+    <img src="imagens/3.jpeg" alt="Foto 3">
+  </div>
+  <div class="carousel-slide fade">
+    <img src="imagens/4.png" alt="Foto 4">
+  </div>
+
+  <!-- Botões de navegação -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
 
 <div class="message">
@@ -227,66 +251,25 @@
 </script>
 
 <script>
-const track = document.getElementById('instaTrack');
-let isDragging = false;
-let startPos = 0;
-let currentTranslate = 0;
-let prevTranslate = 0;
-let currentIndex = 0;
+let slideIndex = 0;
+showSlides();
 
-const slides = Array.from(track.querySelectorAll('.insta-slide'));
-let slideWidth = slides[0].offsetWidth;
-
-function getX(e) {
-  return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+function plusSlides(n) {
+  slideIndex += n;
+  showSlides();
 }
 
-function touchStart(e) {
-  isDragging = true;
-  startPos = getX(e);
-  track.style.transition = 'none';
+function showSlides() {
+  const slides = document.getElementsByClassName("carousel-slide");
+  if (slideIndex >= slides.length) { slideIndex = 0; }
+  if (slideIndex < 0) { slideIndex = slides.length - 1; }
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+
+  slides[slideIndex].style.display = "block";
 }
-
-function touchMove(e) {
-  if (!isDragging) return;
-  const currentPos = getX(e);
-  const delta = currentPos - startPos;
-  currentTranslate = prevTranslate + delta;
-  track.style.transform = `translateX(${currentTranslate}px)`;
-}
-
-function touchEnd() {
-  if (!isDragging) return;
-  isDragging = false;
-  const moved = currentTranslate - prevTranslate;
-
-  if (moved < -50 && currentIndex < slides.length - 1) currentIndex++;
-  if (moved > 50 && currentIndex > 0) currentIndex--;
-
-  snapToSlide();
-}
-
-function snapToSlide() {
-  slideWidth = slides[0].offsetWidth;
-  currentTranslate = currentIndex * -slideWidth;
-  prevTranslate = currentTranslate;
-  track.style.transition = 'transform 0.3s ease';
-  track.style.transform = `translateX(${currentTranslate}px)`;
-}
-
-track.addEventListener('touchstart', touchStart);
-track.addEventListener('touchmove', touchMove, { passive: false });
-track.addEventListener('touchend', touchEnd);
-
-track.addEventListener('mousedown', touchStart);
-track.addEventListener('mousemove', touchMove);
-track.addEventListener('mouseup', touchEnd);
-track.addEventListener('mouseleave', () => { if (isDragging) touchEnd(); });
-
-window.addEventListener('resize', () => {
-  slideWidth = slides[0].offsetWidth;
-  snapToSlide();
-});
 </script>
 
 </body>
